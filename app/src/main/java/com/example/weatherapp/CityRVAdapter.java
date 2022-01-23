@@ -16,26 +16,25 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.SimpleTimeZone;
 
-public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.ViewHolder> {
+public class CityRVAdapter extends RecyclerView.Adapter<CityRVAdapter.ViewHolder> {
     private Context context;
     private ArrayList<WeatherRVModal>weatherRVModalArrayList;
 
-    public WeatherRVAdapter(Context context, ArrayList<WeatherRVModal> weatherRVModalArrayList) {
+    public CityRVAdapter(Context context, ArrayList<WeatherRVModal> weatherRVModalArrayList) {
         this.context = context;
         this.weatherRVModalArrayList = weatherRVModalArrayList;
     }
 
     @NonNull
     @Override
-    public WeatherRVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CityRVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.weather_rv_item,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WeatherRVAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CityRVAdapter.ViewHolder holder, int position) {
 
         WeatherRVModal modal = weatherRVModalArrayList.get(position);
         holder.temperatureTV.setText(modal.getTemperature()+"°c");

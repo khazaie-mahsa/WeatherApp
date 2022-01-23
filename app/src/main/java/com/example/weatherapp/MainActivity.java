@@ -2,22 +2,18 @@ package com.example.weatherapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
-import android.app.DownloadManager;
-import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Telephony;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -36,7 +32,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,16 +47,16 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText cityEdt;
     private ImageView backIV,iconIV,searchIV;
     private ArrayList<WeatherRVModal> weatherRVModalArrayList;
-    private WeatherRVAdapter weatherRVAdapter;
-    private LocationManager locationManager;
+    private CityRVAdapter weatherRVAdapter;
     private int PERMISSION_CODE = 1;
     private String cityName;
+    private DatabaseHelper db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        db = new DatabaseHelper(getBaseContext());
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         setContentView(R.layout.activity_main);
@@ -76,9 +71,10 @@ public class MainActivity extends AppCompatActivity {
         iconIV = findViewById(R.id.idIVIcon);
         searchIV = findViewById(R.id.idIVSearch);
         weatherRVModalArrayList = new ArrayList<>();
-        weatherRVAdapter = new WeatherRVAdapter(this,weatherRVModalArrayList);
+        weatherRVAdapter = new CityRVAdapter(this,weatherRVModalArrayList);
         weatherRV.setAdapter(weatherRVAdapter);
 
+        openHistory();
 //        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
 //            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},PERMISSION_CODE);
@@ -95,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
                 if (city.isEmpty()){
                     Toast.makeText(MainActivity.this, "Please Enter City Name", Toast.LENGTH_SHORT).show();
                 }else{
+                    if(db.insertCity(city))
+                        Log.i("success", "onClick: successfully inserted data");
+                    else
+                        Log.i("fail", "onClick: insertion failed");
                     cityNameTV.setText(cityName);
                     getWeatherInfo(city);
                 }
@@ -193,4 +193,16 @@ public class MainActivity extends AppCompatActivity {
 
         requestQueue.add(jsonObjectRequest);
     }
+
+    private void openHistory(){
+        ImageButton history = (ImageButton) findViewById(R.id.history);
+//        ImageButton history = view.getId();
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ShowHistory.class));
+            }
+        });
+    }
 }
+
