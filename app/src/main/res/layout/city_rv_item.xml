@@ -2,16 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:weightSum="10"
     android:orientation="vertical"
+    android:background="@color/black_shade_1"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:backgroundTint="@color/black"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="6dp"
-        >
+        app:cardCornerRadius="5dp"
+        android:padding="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

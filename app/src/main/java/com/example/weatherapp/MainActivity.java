@@ -75,12 +75,6 @@ public class MainActivity extends AppCompatActivity {
         weatherRV.setAdapter(weatherRVAdapter);
 
         openHistory();
-//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},PERMISSION_CODE);
-//        }
-//         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-//        cityName = getCityName(location.getLongitude(), location.getLatitude());
         cityName = "Tehran";
         getWeatherInfo(cityName);
 
@@ -160,14 +154,16 @@ public class MainActivity extends AppCompatActivity {
                     conditionTV.setText(condition);
                     if (isDay==1){
                         //morning
-                        Picasso.get().load("https://wallpaperaccess.com/download/morning-phone-3162178").into(backIV);
-                    }else {
-                        Picasso.get().load("https://wallpapercave.com/w/wp3290532").into(backIV);
+                        Picasso.get().load("https://wallpapercave.com/download/sunrise-view-wallpapers-wp5058207").into(backIV);
+                    }
+                    else {
+                        //night
+                        Picasso.get().load("https://wallpapercave.com/download/christmas-sky-wallpapers-wp5077792").into(backIV);
                     }
 
                     JSONObject forcastObj = response.getJSONObject("forecast");
-                    JSONObject forcastO = forcastObj.getJSONArray("forecastday").getJSONObject(0);
-                    JSONArray hourArray = forcastO.getJSONArray("hour");
+                    JSONObject forcast = forcastObj.getJSONArray("forecastday").getJSONObject(0);
+                    JSONArray hourArray = forcast.getJSONArray("hour");
 
                     for (int i=0; i<hourArray.length(); i++){
                         JSONObject hourObj = hourArray.getJSONObject(i);
@@ -196,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void openHistory(){
         ImageButton history = (ImageButton) findViewById(R.id.history);
-//        ImageButton history = view.getId();
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

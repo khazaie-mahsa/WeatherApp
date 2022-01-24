@@ -115,14 +115,14 @@
             android:id="@+id/idIVIcon"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/idTVTemperature"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:src="@drawable/rainy"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/idTVCondition"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:gravity="center"
             android:textAlignment="center"
             android:text="Condition"
@@ -137,14 +137,5 @@
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
-
-
-
-
-
-
     </RelativeLayout>
-
-
-
 </RelativeLayout>

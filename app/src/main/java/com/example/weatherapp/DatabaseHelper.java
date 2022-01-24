@@ -54,15 +54,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List getCities(){
         SQLiteDatabase db = this.getReadableDatabase();
-
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
         String[] projection = {COL_1};
 
-// Filter results WHERE "title" = 'My Title'
-        String selection = COL_1 + " is *";
-
-// How you want the results sorted in the resulting Cursor
         String sortOrder = ID + " DESC";
 
         Cursor cursor = db.query(
