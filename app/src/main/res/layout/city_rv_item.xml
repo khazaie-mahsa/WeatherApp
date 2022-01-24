@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:weightSum="10"
     android:orientation="vertical"
-    android:background="@color/black_shade_1"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
